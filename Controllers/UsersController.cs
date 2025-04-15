@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AccessibleBank.Controllers
 {
@@ -67,6 +68,31 @@ namespace AccessibleBank.Controllers
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+    
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> Delete()
+        {
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+                return NotFound("User not found.");
+
+            // Optional: delete accounts and transactions too, or enforce cascade delete
+            var userAccounts = _context.Accounts.Where(a => a.UserId == userId);
+            var userAccountIds = await userAccounts.Select(a => a.Id).ToListAsync();
+            var userTransactions = _context.Transactions
+                .Where(t => userAccountIds.Contains(t.FromAccountId) || userAccountIds.Contains(t.ToAccountId));
+
+            _context.Transactions.RemoveRange(userTransactions);
+            _context.Accounts.RemoveRange(userAccounts);
+            _context.Users.Remove(user);
+
+            await _context.SaveChangesAsync();
+
+            return Ok("User and all related data deleted.");
         }
     }
 }
