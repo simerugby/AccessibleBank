@@ -1,2 +1,21 @@
-# AccessibleBank
-AccessibleBank is a .NET-based banking web application designed to demonstrate core financial features such as user registration, account management, and transaction processing. Developed for educational purposes in a software engineering project with Entity Framework Core and SQL Server.
+# AccessibleBank 💳
+
+AccessibleBank es una aplicación web diseñada para gestionar cuentas y transacciones bancarias de manera segura y accesible. Este proyecto ha sido desarrollado como parte de un proyecto universitario centrado en la integración de tecnologías modernas y accesibilidad.
+
+## 🚀 Tecnologías utilizadas
+- ASP.NET Core
+- Entity Framework Core
+- SQL Server
+- Visual Studio / VS Code
+- GitHub
+
+## 📂 Estructura del Proyecto
+- `Models/`: Contiene las entidades como `User`, `Account`, y `Transaction`
+- `Controllers/`: Lógica para manejar las solicitudes HTTP
+- `Data/`: Contiene el `DbContext`
+- `Migrations/`: Migraciones de la base de datos generadas por EF Core
+
+## ⚙️ Cómo ejecutar
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/simerugby/AccessibleBank.git
