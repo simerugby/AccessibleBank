@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
 
 namespace AccessibleBank.Models
 {
@@ -10,6 +12,7 @@ namespace AccessibleBank.Models
         [Required]
         public int UserId { get; set; }
 
+        [JsonIgnore]
         [ForeignKey("UserId")]
         public User? User { get; set; } //making the property nullable with ?
 

@@ -17,6 +17,12 @@ namespace AccessibleBank.Models
         public decimal Amount { get; set; }
 
         public DateTime Date { get; set; } = DateTime.UtcNow;
+        
+        [MaxLength(255)]
+        public string? Description { get; set; }
+
+        [MaxLength(50)]
+        public string? Category { get; set; }
 
         [ForeignKey("FromAccountId")]
         public Account? FromAccount { get; set; }
